@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SP-ANEST-001 · Segurança do Paciente em Anestesiologia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1e40af;
+      --blue-light: #dbeafe;
+      --blue-dark: #1e3a8a;
+      --green: #15803d;
+      --green-light: #dcfce7;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --max-w: 860px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.65; }
+
+    /* ── Breadcrumb / header ── */
+    .topbar {
+      background: var(--blue-dark);
+      padding: 10px 16px;
+      font-size: 0.78rem;
+    }
+    .topbar-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #bfdbfe;
+    }
+    .topbar-inner a { color: #93c5fd; text-decoration: none; }
+    .topbar-inner a:hover { text-decoration: underline; }
+    .sep { color: #6b7280; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+      color: #fff;
+      padding: 48px 16px 40px;
+    }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; }
+    .course-id {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #93c5fd;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 0.83rem;
+      color: #bfdbfe;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 5px; }
+    .badge-complete {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 18px;
+      background: var(--green-light);
+      color: var(--green);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── Access buttons ── */
+    .access-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 14px 16px;
+    }
+    .access-bar-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { opacity: .88; }
+    .btn-outline { border: 1.5px solid var(--blue); color: var(--blue); background: transparent; }
+    .btn-outline:hover { background: var(--blue-light); }
+
+    /* ── Main ── */
+    main { max-width: var(--max-w); margin: 0 auto; padding: 36px 16px 64px; }
+
+    /* ── Sections ── */
+    section { margin-bottom: 40px; }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--blue-light);
+    }
+
+    /* ── Info grid ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .info-card-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--gray-500);
+      margin-bottom: 4px;
+    }
+    .info-card-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    /* ── Objectives ── */
+    .obj-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .obj-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .obj-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .obj-text { font-size: 0.875rem; color: var(--gray-700); padding-top: 3px; }
+    .obj-bloom {
+      margin-left: auto;
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--blue);
+      background: var(--blue-light);
+      border-radius: 12px;
+      padding: 2px 8px;
+      align-self: center;
+    }
+
+    /* ── Schedule table ── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+    th {
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--gray-200); color: var(--gray-700); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--gray-50); }
+    .td-turma { font-weight: 700; color: var(--blue); }
+
+    /* ── Block timeline ── */
+    .block-list { display: flex; flex-direction: column; gap: 8px; }
+    .block-row {
+      display: grid;
+      grid-template-columns: 90px 50px 1fr;
+      gap: 0;
+      align-items: stretch;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+    .block-time {
+      background: var(--blue-dark);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .block-dur {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 8px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .block-info {
+      background: #fff;
+      padding: 8px 14px;
+      font-size: 0.83rem;
+      color: var(--gray-700);
+    }
+    .block-title { font-weight: 600; color: var(--gray-900); }
+    .block-row.break .block-time { background: var(--amber); }
+    .block-row.break .block-dur { background: var(--amber-light); color: var(--amber); }
+    .block-row.break .block-info { background: #fffbeb; }
+    .block-row.sim .block-time { background: var(--green); }
+    .block-row.sim .block-dur { background: var(--green-light); color: var(--green); }
+    .block-row.sim .block-info { background: #f0fdf4; }
+
+    /* ── Faculty ── */
+    .faculty-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .faculty-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .faculty-role {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+    .faculty-name { font-size: 0.9rem; font-weight: 600; color: var(--gray-900); }
+    .faculty-uf { font-size: 0.78rem; color: var(--gray-500); margin-top: 2px; }
+
+    /* ── Scenarios ── */
+    .scenario-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .scenario-header {
+      background: var(--green);
+      color: #fff;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scenario-header h3 { font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 700; }
+    .scenario-id { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+    .scenario-body { padding: 16px 18px; font-size: 0.875rem; color: var(--gray-700); }
+    .scenario-body p { margin-bottom: 8px; }
+    .scenario-body strong { color: var(--gray-900); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--blue-dark);
+      color: #bfdbfe;
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.78rem;
+    }
+    footer a { color: #93c5fd; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<!-- Breadcrumb -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="../">Cursos</a>
+    <span class="sep">›</span>
+    <span>SP-ANEST-001</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="course-id">SP-ANEST-001 · Piloto 2026–2027</div>
+    <h1>Segurança do Paciente:<br>princípios, sistemas e barreiras<br>aplicados à anestesiologia</h1>
+    <div class="hero-meta">
+      <span>🏛️ Instituto SBA Simulação e Certificação</span>
+      <span>👥 ~23 anestesiologistas com RQE / turma</span>
+      <span>📅 Dez 2026 – Mar 2027</span>
+      <span>🕐 08h00–17h00</span>
+    </div>
+    <div class="badge-complete">✓ Pacote completo · 18/09/2026</div>
+  </div>
+</div>
+
+<!-- Access bar -->
+<div class="access-bar">
+  <div class="access-bar-inner">
+    <a class="btn btn-primary" href="participantes/">Área do participante</a>
+    <a class="btn btn-outline" href="instrutores/">Área do instrutor</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- Identificação -->
+  <section>
+    <h2 class="section-title">Identificação do curso</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-label">ID do pacote</div>
+        <div class="info-card-value">SP-ANEST-001</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Modalidade</div>
+        <div class="info-card-value">Presencial</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Carga efetiva</div>
+        <div class="info-card-value">7h45 (465 min)</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Janela diária</div>
+        <div class="info-card-value">08h00 – 17h00</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Nº de turmas</div>
+        <div class="info-card-value">10 turmas</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Instrutores / turma</div>
+        <div class="info-card-value">3</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Ambientes</div>
+        <div class="info-card-value">Auditório + Sala de simulação</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Avaliação</div>
+        <div class="info-card-value">Formativa (pré/pós, formas A/B)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tese central -->
+  <section>
+    <h2 class="section-title">Tese central</h2>
+    <blockquote style="background:#fff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:16px 20px;font-size:0.95rem;color:var(--gray-700);font-style:italic;border:1px solid var(--gray-200);border-left:4px solid var(--blue);">
+      "Segurança do paciente depende de sistemas robustos, não de desempenho individual perfeito."
+    </blockquote>
+  </section>
+
+  <!-- Objetivos -->
+  <section>
+    <h2 class="section-title">Objetivos de aprendizagem</h2>
+    <ul class="obj-list">
+      <li class="obj-item">
+        <div class="obj-num">1</div>
+        <div class="obj-text">Distinguir erro humano, violação e evento adverso, aplicando a taxonomia da OMS ao contexto anestésico</div>
+        <div class="obj-bloom">Compreender</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">2</div>
+        <div class="obj-text">Explicar o Modelo do Queijo Suíço (Reason) e identificar erros ativos e condições latentes em casos anestésicos</div>
+        <div class="obj-bloom">Analisar</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">3</div>
+        <div class="obj-text">Classificar barreiras de segurança (físicas, funcionais, simbólicas e comportamentais) e propor barreiras adicionais para lacunas identificadas</div>
+        <div class="obj-bloom">Aplicar</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">4</div>
+        <div class="obj-text">Demonstrar habilidades de CRM (comunicação em alça fechada, SBAR, advocacy &amp; inquiry) durante cenário de simulação</div>
+        <div class="obj-bloom">Aplicar</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">5</div>
+        <div class="obj-text">Analisar incidentes reais utilizando o framework de análise sistêmica, diferenciando falhas de pessoa de falhas de sistema</div>
+        <div class="obj-bloom">Analisar</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">6</div>
+        <div class="obj-text">Avaliar a cultura de segurança do próprio serviço, identificando ao menos uma lacuna prioritária e uma ação viável de melhoria</div>
+        <div class="obj-bloom">Avaliar</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">7</div>
+        <div class="obj-text">Reconhecer os princípios da Cultura Justa (Just Culture) e seu papel na redução da segunda vítima e no fortalecimento da notificação voluntária</div>
+        <div class="obj-bloom">Compreender</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Grade horária -->
+  <section>
+    <h2 class="section-title">Grade horária — 15 blocos</h2>
+    <div class="block-list">
+      <div class="block-row"><div class="block-time">08h00</div><div class="block-dur">15'</div><div class="block-info"><div class="block-title">BL-01 · Abertura e pré-teste</div>Boas-vindas, agenda do dia, formulário pré-teste (formas A e B)</div></div>
+      <div class="block-row"><div class="block-time">08h15</div><div class="block-dur">20'</div><div class="block-info"><div class="block-title">BL-02 · Epidemiologia da SP</div>Dados globais e brasileiros; impacto na anestesiologia; enquete interativa</div></div>
+      <div class="block-row"><div class="block-time">08h35</div><div class="block-dur">30'</div><div class="block-info"><div class="block-title">BL-03 · Taxonomia e Cultura Justa</div>OMS: erro × violação × evento adverso; Cultura Justa; caso breve para discussão</div></div>
+      <div class="block-row"><div class="block-time">09h05</div><div class="block-dur">30'</div><div class="block-info"><div class="block-title">BL-04 · Modelo do Queijo Suíço</div>Palestra (10 min) + atividade com cards por equipe (8 min) + socialização (12 min)</div></div>
+      <div class="block-row break"><div class="block-time">09h35</div><div class="block-dur">15'</div><div class="block-info"><div class="block-title">☕ Pausa 1</div>Café</div></div>
+      <div class="block-row"><div class="block-time">09h50</div><div class="block-dur">35'</div><div class="block-info"><div class="block-title">BL-05 · Barreiras de segurança</div>Palestra (10 min) + mapeamento em folha A3 por equipe (15 min) + plenária (10 min)</div></div>
+      <div class="block-row"><div class="block-time">10h25</div><div class="block-dur">35'</div><div class="block-info"><div class="block-title">BL-06 · CRM — Gestão de Recursos em Crise</div>Palestra (10 min) + roleplay em tríades (10 min) + debriefing (15 min)</div></div>
+      <div class="block-row"><div class="block-time">11h00</div><div class="block-dur">40'</div><div class="block-info"><div class="block-title">BL-07 · Diagnóstico local e segunda vítima</div>Cards de lacunas (8 min) + socialização (10 min) + cultura justa / 2ª vítima (22 min)</div></div>
+      <div class="block-row break"><div class="block-time">11h40</div><div class="block-dur">50'</div><div class="block-info"><div class="block-title">🍽️ Almoço</div>Facilitadores analisam pré-testes e confirmam ordem das equipes na simulação</div></div>
+      <div class="block-row sim"><div class="block-time">12h30</div><div class="block-dur">15'</div><div class="block-info"><div class="block-title">BL-08 · Briefing geral da simulação</div>Regras do espaço, papéis, instruções para observadores</div></div>
+      <div class="block-row sim"><div class="block-time">12h45</div><div class="block-dur">15'</div><div class="block-info"><div class="block-title">BL-09 · Briefing CEN-01</div>Equipes 1+2 recebem dossiê do cenário "Cirurgia no local errado"</div></div>
+      <div class="block-row sim"><div class="block-time">13h00</div><div class="block-dur">45'</div><div class="block-info"><div class="block-title">BL-10/11 · Simulação + Debriefing CEN-01 (Equipe 1)</div>Simulação 15 min + freeze + debriefing GAS 25 min</div></div>
+      <div class="block-row sim"><div class="block-time">13h45</div><div class="block-dur">40'</div><div class="block-info"><div class="block-title">BL-10/11 · Simulação + Debriefing CEN-01 (Equipe 2)</div>Simulação 15 min + freeze + debriefing GAS 20 min</div></div>
+      <div class="block-row break"><div class="block-time">14h25</div><div class="block-dur">15'</div><div class="block-info"><div class="block-title">☕ Pausa 2</div>Reset da sala + briefing CEN-02</div></div>
+      <div class="block-row sim"><div class="block-time">14h40</div><div class="block-dur">15'</div><div class="block-info"><div class="block-title">BL-12 · Briefing CEN-02</div>Todas as equipes recebem contexto do cenário "Erro de medicação LASA"</div></div>
+      <div class="block-row sim"><div class="block-time">14h55</div><div class="block-dur">40'</div><div class="block-info"><div class="block-title">BL-13/14 · Simulação + Debriefing CEN-02 (Equipe 3)</div>Simulação 15 min + freeze + debriefing GAS 20 min</div></div>
+      <div class="block-row sim"><div class="block-time">15h35</div><div class="block-dur">40'</div><div class="block-info"><div class="block-title">BL-13/14 · Simulação + Debriefing CEN-02 (Equipe 4)</div>Simulação 15 min + freeze + debriefing GAS 20 min</div></div>
+      <div class="block-row"><div class="block-time">16h15</div><div class="block-dur">45'</div><div class="block-info"><div class="block-title">BL-15 · Encerramento</div>Pós-teste + votação de lacuna prioritária + formulário de satisfação + feedback aberto</div></div>
+    </div>
+  </section>
+
+  <!-- Cenários -->
+  <section>
+    <h2 class="section-title">Cenários de simulação</h2>
+    <div class="scenario-card">
+      <div class="scenario-header">
+        <h3>Cirurgia em local errado</h3>
+        <span class="scenario-id">CEN-01</span>
+      </div>
+      <div class="scenario-body">
+        <p><strong>Incidente:</strong> Cirurgião marca ombro esquerdo na véspera para cirurgia de manguito rotador direito; anestesiologista realiza bloqueio no lado errado.</p>
+        <p><strong>Objetivos:</strong> OBJ-2 (Queijo Suíço), OBJ-3 (barreiras), OBJ-4 (CRM), OBJ-7 (Cultura Justa)</p>
+        <p><strong>Método de debriefing:</strong> GAS — Gather → Analyze → Summarize (Cheng et al., 2016)</p>
+      </div>
+    </div>
+    <div class="scenario-card">
+      <div class="scenario-header">
+        <h3>Erro de medicação — look-alike</h3>
+        <span class="scenario-id">CEN-02</span>
+      </div>
+      <div class="scenario-body">
+        <p><strong>Incidente:</strong> Anestesiologista injeta adrenalina em vez de atropina durante procedimento (drogas LASA — Look-Alike Sound-Alike).</p>
+        <p><strong>Objetivos:</strong> OBJ-2 (Queijo Suíço), OBJ-3 (barreiras), OBJ-4 (CRM)</p>
+        <p><strong>Método de debriefing:</strong> GAS — Gather → Analyze → Summarize (Cheng et al., 2016)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Corpo docente -->
+  <section>
+    <h2 class="section-title">Corpo docente</h2>
+    <div class="faculty-grid">
+      <div class="faculty-card">
+        <div class="faculty-role">Coordenador</div>
+        <div class="faculty-name">Prof. Luis Antonio Diego</div>
+        <div class="faculty-uf">RJ</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Coordenadora</div>
+        <div class="faculty-name">Alexandra Assad</div>
+        <div class="faculty-uf">RJ</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Professora</div>
+        <div class="faculty-name">Cláudia Machado</div>
+        <div class="faculty-uf">RJ</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Professor</div>
+        <div class="faculty-name">Marcus Aviz</div>
+        <div class="faculty-uf">DF</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Professor</div>
+        <div class="faculty-name">Rohnelt Oliveira</div>
+        <div class="faculty-uf">PR</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Professor</div>
+        <div class="faculty-name">André Braga</div>
+        <div class="faculty-uf">GO</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Professor</div>
+        <div class="faculty-name">Sérgio Gevalks</div>
+        <div class="faculty-uf">RJ</div>
+      </div>
+      <div class="faculty-card">
+        <div class="faculty-role">Professor</div>
+        <div class="faculty-name">Mauro Azevedo</div>
+        <div class="faculty-uf">RJ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendário -->
+  <section>
+    <h2 class="section-title">Calendário de turmas</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Turma</th><th>Data</th><th>Dia da semana</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-turma">T-01</td><td>09/12/2026</td><td>Quarta-feira</td></tr>
+          <tr><td class="td-turma">T-02</td><td>17/12/2026</td><td>Quinta-feira</td></tr>
+          <tr><td class="td-turma">T-03</td><td>08/01/2027</td><td>Sexta-feira</td></tr>
+          <tr><td class="td-turma">T-04</td><td>13/01/2027</td><td>Quarta-feira</td></tr>
+          <tr><td class="td-turma">T-05</td><td>21/01/2027</td><td>Quinta-feira</td></tr>
+          <tr><td class="td-turma">T-06</td><td>28/01/2027</td><td>Quinta-feira</td></tr>
+          <tr><td class="td-turma">T-07</td><td>17/02/2027</td><td>Quarta-feira</td></tr>
+          <tr><td class="td-turma">T-08</td><td>25/02/2027</td><td>Quinta-feira</td></tr>
+          <tr><td class="td-turma">T-09</td><td>05/03/2027</td><td>Sexta-feira</td></tr>
+          <tr><td class="td-turma">T-10</td><td>10/03/2027</td><td>Quarta-feira</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.78rem;color:var(--gray-500);margin-top:10px;">Instituto SBA Simulação e Certificação · Cada turma é independente (mesmo pacote SP-ANEST-001, grupos distintos de participantes).</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 <a href="https://www.cuidarseguro.com.br">CuidarSeguro</a> · SP-ANEST-001 · Coordenação: Prof. Luis Antonio Diego</p>
+</footer>
+
+</body>
+</html>
