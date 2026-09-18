@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Participante · SP-ANEST-001</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1e40af;
+      --blue-light: #dbeafe;
+      --blue-dark: #1e3a8a;
+      --green: #15803d;
+      --green-light: #dcfce7;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --max-w: 860px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.65; }
+
+    .topbar { background: var(--blue-dark); padding: 10px 16px; font-size: 0.78rem; }
+    .topbar-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; gap: 6px; color: #bfdbfe; }
+    .topbar-inner a { color: #93c5fd; text-decoration: none; }
+    .topbar-inner a:hover { text-decoration: underline; }
+    .sep { color: #6b7280; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+      color: #fff;
+      padding: 40px 16px 36px;
+    }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; }
+    .course-id { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #93c5fd; margin-bottom: 8px; }
+    .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.3rem, 3vw, 1.75rem); font-weight: 700; line-height: 1.25; margin-bottom: 10px; }
+    .hero p { font-size: 0.9rem; color: #bfdbfe; }
+
+    main { max-width: var(--max-w); margin: 0 auto; padding: 36px 16px 64px; }
+    section { margin-bottom: 40px; }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--blue-light);
+    }
+
+    /* ── Info banner ── */
+    .info-banner {
+      background: var(--blue-light);
+      border: 1px solid #93c5fd;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--blue-dark);
+      margin-bottom: 28px;
+    }
+    .info-banner strong { display: block; margin-bottom: 4px; }
+
+    /* ── Day timeline compact ── */
+    .day-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .day-header {
+      background: var(--gray-100);
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--blue-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .day-header .time { color: var(--gray-500); font-weight: 400; font-size: 0.78rem; }
+    .day-body { padding: 14px 18px; }
+    .day-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 0.85rem;
+    }
+    .day-item:last-child { border-bottom: none; }
+    .day-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .day-dot.green { background: var(--green); }
+    .day-dot.gray { background: var(--gray-500); }
+    .day-label { font-weight: 600; color: var(--gray-900); }
+    .day-desc { color: var(--gray-500); font-size: 0.78rem; }
+
+    /* ── O que esperar ── */
+    .expect-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+    .expect-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .expect-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .expect-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: var(--gray-900); }
+    .expect-text { font-size: 0.82rem; color: var(--gray-700); }
+
+    /* ── Perguntas frequentes ── */
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
+    }
+    .faq-q { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: var(--blue-dark); }
+    .faq-a { font-size: 0.85rem; color: var(--gray-700); }
+
+    /* ── CTA ── */
+    .cta-box {
+      background: var(--green-light);
+      border: 1px solid #86efac;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .cta-box h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+    .cta-box p { font-size: 0.85rem; color: #166534; }
+
+    footer { background: var(--blue-dark); color: #bfdbfe; text-align: center; padding: 24px 16px; font-size: 0.78rem; }
+    footer a { color: #93c5fd; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="../../">Cursos</a>
+    <span class="sep">›</span>
+    <a href="../">SP-ANEST-001</a>
+    <span class="sep">›</span>
+    <span>Área do participante</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="course-id">SP-ANEST-001 · Área do Participante</div>
+    <h1>Segurança do Paciente em Anestesiologia</h1>
+    <p>Tudo o que você precisa saber sobre o dia do curso.</p>
+  </div>
+</div>
+
+<main>
+
+  <div class="info-banner">
+    <strong>📋 Antes de chegar</strong>
+    Leia com atenção as informações abaixo. Não é necessária nenhuma preparação prévia — o curso parte do zero e constrói os conceitos ao longo do dia.
+  </div>
+
+  <!-- O dia -->
+  <section>
+    <h2 class="section-title">Como é o dia do curso</h2>
+    <div class="day-card">
+      <div class="day-header">
+        <span>☀️ Manhã — Auditório</span>
+        <span class="time">08h00 – 11h40</span>
+      </div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">08h00 – Abertura e pré-teste</div><div class="day-desc">Breve questionário individual (sem valor de nota — serve apenas para medir aprendizado ao final)</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">08h15 – Epidemiologia da segurança do paciente</div><div class="day-desc">Dados sobre eventos adversos em anestesia no Brasil e no mundo</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">08h35 – Taxonomia e Cultura Justa</div><div class="day-desc">Erros × violações × eventos adversos · Cultura punitiva vs. Cultura Justa</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">09h05 – Modelo do Queijo Suíço</div><div class="day-desc">Palestra + atividade em equipe com cards de casos clínicos</div></div></div>
+        <div class="day-item"><div class="day-dot gray"></div><div><div class="day-label">09h35 – ☕ Pausa (15 min)</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">09h50 – Barreiras de segurança</div><div class="day-desc">4 tipos de barreiras + mapeamento em folha A3 por equipe</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">10h25 – CRM: Gestão de Recursos em Crise</div><div class="day-desc">SBAR, alça fechada, advocacy &amp; inquiry · Roleplay em tríades</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">11h00 – Diagnóstico local e segunda vítima</div><div class="day-desc">Você avalia lacunas do seu próprio serviço e discute com o grupo</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-header">
+        <span>🍽️ Almoço</span>
+        <span class="time">11h40 – 12h30</span>
+      </div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-dot gray"></div><div><div class="day-label">50 minutos</div><div class="day-desc">Almoço livre. Os instrutores aproveitam para analisar os pré-testes.</div></div></div>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-header">
+        <span>🏥 Tarde — Simulação</span>
+        <span class="time">12h30 – 17h00</span>
+      </div>
+      <div class="day-body">
+        <div class="day-item"><div class="day-dot green"></div><div><div class="day-label">12h30 – Briefing geral</div><div class="day-desc">Regras do espaço de simulação e papéis de cada equipe</div></div></div>
+        <div class="day-item"><div class="day-dot green"></div><div><div class="day-label">13h00 – Cenário 1: Cirurgia em local errado (CEN-01)</div><div class="day-desc">Uma equipe age; as demais observam via transmissão ao vivo com checklist</div></div></div>
+        <div class="day-item"><div class="day-dot green"></div><div><div class="day-label">14h55 – Cenário 2: Erro de medicação LASA (CEN-02)</div><div class="day-desc">Adrenalina × atropina · Uma equipe age; as demais observam</div></div></div>
+        <div class="day-item"><div class="day-dot"></div><div><div class="day-label">16h15 – Encerramento</div><div class="day-desc">Pós-teste · Votação de lacuna prioritária · Formulário de satisfação (anônimo)</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O que esperar -->
+  <section>
+    <h2 class="section-title">O que você vai experienciar</h2>
+    <div class="expect-grid">
+      <div class="expect-card">
+        <div class="expect-icon">🤝</div>
+        <div class="expect-title">Trabalho em equipe</div>
+        <div class="expect-text">Você será alocado em uma das 5 equipes (4–5 médicos). As atividades da manhã e a simulação são feitas em grupo.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">🎭</div>
+        <div class="expect-title">Simulação de alta fidelidade</div>
+        <div class="expect-text">Sala de cirurgia real com manequim, aparelho de anestesia, monitor e transmissão ao vivo para o auditório.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">💬</div>
+        <div class="expect-title">Debriefing estruturado</div>
+        <div class="expect-text">Após cada cenário, o facilitador conduz uma discussão pelo método GAS — sem julgamento, com foco no sistema.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">📝</div>
+        <div class="expect-title">Avaliação formativa</div>
+        <div class="expect-text">Pré e pós-teste com 8–10 questões. Sem nota, sem certificação — serve apenas para medir seu aprendizado no dia.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">🔍</div>
+        <div class="expect-title">Diagnóstico do seu serviço</div>
+        <div class="expect-text">Uma atividade da manhã pede que você avalie lacunas reais do seu hospital — e discuta com colegas de outros serviços.</div>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">🛡️</div>
+        <div class="expect-title">Ambiente seguro</div>
+        <div class="expect-text">Cultura Justa aplicada na sala: erros no cenário são aprendizado, não exposição. O que acontece na sala fica na sala.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <h2 class="section-title">Perguntas frequentes</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Preciso estudar algo antes do curso?</div>
+      <div class="faq-a">Não. O curso foi desenhado para partir do zero em segurança do paciente — os conceitos são introduzidos progressivamente ao longo do dia.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Todos os participantes vão entrar na sala de simulação?</div>
+      <div class="faq-a">Não. Em cada cenário, uma equipe age dentro da sala enquanto as demais observam ao vivo pelo sistema de transmissão no auditório, preenchendo um checklist de observação. Cada equipe age em pelo menos um dos dois cenários.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O pré/pós-teste vale nota para o RQE ou alguma certificação?</div>
+      <div class="faq-a">Não. É uma avaliação formativa, sem valor de nota ou certificação. Os resultados são agregados para medir o aprendizado coletivo da turma e aprimorar as próximas edições.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O que é o método GAS que vocês mencionam no debriefing?</div>
+      <div class="faq-a">GAS (Gather → Analyze → Summarize) é um método estruturado de debriefing desenvolvido para simulação clínica (Cheng et al., 2016). O facilitador primeiro coleta a percepção de quem estava na sala, depois analisa o raciocínio por trás das decisões, e por fim consolida as lições aprendidas.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Vou ser avaliado ou criticado pela minha performance na simulação?</div>
+      <div class="faq-a">Não. A premissa central do curso é que segurança depende de sistemas, não de desempenho individual. Erros no cenário são oportunidades de aprendizado coletivo — o debriefing foca no sistema, nunca no indivíduo.</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>Dúvidas ou problemas de acesso?</h3>
+    <p>Entre em contato com a coordenação do curso:<br>
+    <strong>Prof. Luis Antonio Diego</strong> · <a href="https://www.cuidarseguro.com.br" style="color: var(--green);">cuidarseguro.com.br</a></p>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 <a href="https://www.cuidarseguro.com.br">CuidarSeguro</a> · SP-ANEST-001 · Área do Participante</p>
+</footer>
+
+</body>
+</html>
