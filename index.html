@@ -355,27 +355,49 @@
   (function() {
     if (sessionStorage.getItem('instrutor_auth') === '1') {
       document.getElementById('login-overlay').classList.add('hidden');
+      var savedEmail = sessionStorage.getItem('instrutor_email');
+      if (savedEmail) {
+        document.addEventListener('DOMContentLoaded', function() { mostrarInstrutor(savedEmail); });
+      }
     }
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') doLogin();
     });
   })();
 
+  var EMAILS_AUTORIZADOS = [
+    'luisantoniodiego@gmail.com',
+    'alexandraassad@gmail.com',
+    'rohnelt_oliveira@uol.com.br',
+    'mauro.pereira.azevedo@gmail.com',
+    'marcusaviz@gmail.com',
+    'sergiogelbvaks@gmail.com',
+    'andredores@hotmail.com',
+    'claudia.r.machado1107@gmail.com'
+  ];
+
   function doLogin() {
-    var email = document.getElementById('login-email').value.trim();
+    var email = document.getElementById('login-email').value.trim().toLowerCase();
     var pass  = document.getElementById('login-pass').value;
     var err   = document.getElementById('login-error');
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    var emailOk = EMAILS_AUTORIZADOS.indexOf(email) !== -1;
     var passOk  = pass === 'sba@imersão.sp';
     if (emailOk && passOk) {
       sessionStorage.setItem('instrutor_auth', '1');
+      sessionStorage.setItem('instrutor_email', email);
       document.getElementById('login-overlay').classList.add('hidden');
+      mostrarInstrutor(email);
       err.classList.remove('visible');
     } else {
       err.classList.add('visible');
       document.getElementById('login-pass').value = '';
       document.getElementById('login-pass').focus();
     }
+  }
+
+  function mostrarInstrutor(email) {
+    var el = document.getElementById('instrutor-info');
+    if (el) { el.textContent = '👤 ' + email; el.style.display = 'inline'; }
   }
 </script>
 
@@ -386,6 +408,7 @@
     <a href="../">SP-ANEST-001</a>
     <span class="sep">›</span>
     <span>Área do instrutor</span>
+    <span id="instrutor-info" style="display:none;margin-left:auto;font-size:0.78rem;opacity:0.75;"></span>
   </div>
 </nav>
 
