@@ -1,1 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Instrutor · SP-ANEST-001</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1e40af;
+      --blue-light: #dbeafe;
+      --blue-dark: #1e3a8a;
+      --green: #15803d;
+      --green-light: #dcfce7;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --max-w: 860px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.65; }
+
+    .topbar { background: var(--blue-dark); padding: 10px 16px; font-size: 0.78rem; }
+    .topbar-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; gap: 6px; color: #bfdbfe; }
+    .topbar-inner a { color: #93c5fd; text-decoration: none; }
+    .topbar-inner a:hover { text-decoration: underline; }
+    .sep { color: #6b7280; }
+
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      color: #fff;
+      padding: 40px 16px 36px;
+      border-bottom: 4px solid var(--amber);
+    }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; }
+    .course-id { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #93c5fd; margin-bottom: 8px; }
+    .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.3rem, 3vw, 1.75rem); font-weight: 700; line-height: 1.25; margin-bottom: 10px; }
+    .hero p { font-size: 0.9rem; color: #bfdbfe; }
+    .restricted-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      background: rgba(251, 191, 36, 0.2);
+      border: 1px solid #fbbf24;
+      color: #fbbf24;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    main { max-width: var(--max-w); margin: 0 auto; padding: 36px 16px 64px; }
+    section { margin-bottom: 40px; }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--blue-light);
+    }
+
+    /* ── Alert ── */
+    .alert {
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+    .alert-amber { background: var(--amber-light); border: 1px solid #fcd34d; color: var(--amber); }
+    .alert-amber strong { display: block; margin-bottom: 4px; color: #92400e; }
+
+    /* ── Role cards ── */
+    .role-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .role-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+    .role-card-header {
+      padding: 14px 18px;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .role-a .role-card-header { background: var(--blue-dark); }
+    .role-b .role-card-header { background: var(--green); }
+    .role-c .role-card-header { background: var(--amber); }
+    .role-card-body { background: #fff; padding: 14px 18px; }
+    .role-item { font-size: 0.82rem; color: var(--gray-700); padding: 5px 0; border-bottom: 1px solid var(--gray-100); display: flex; gap: 8px; align-items: flex-start; }
+    .role-item:last-child { border-bottom: none; }
+    .role-item::before { content: '→'; color: var(--gray-500); flex-shrink: 0; margin-top: 1px; }
+    .role-location { font-size: 0.72rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 10px; }
+
+    /* ── Docs grid ── */
+    .docs-grid { display: flex; flex-direction: column; gap: 10px; }
+    .doc-row {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .doc-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .doc-info { flex: 1; }
+    .doc-title { font-weight: 700; font-size: 0.9rem; color: var(--gray-900); }
+    .doc-desc { font-size: 0.78rem; color: var(--gray-500); margin-top: 2px; }
+    .doc-path { font-family: monospace; font-size: 0.72rem; color: var(--blue); background: var(--blue-light); padding: 2px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; }
+    .doc-badge {
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+    .doc-badge.blue { background: var(--blue-light); color: var(--blue); }
+    .doc-badge.green { background: var(--green-light); color: var(--green); }
+    .doc-badge.amber { background: var(--amber-light); color: var(--amber); }
+
+    /* ── Checklist ── */
+    .checklist-section { background: #fff; border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+    .checklist-header { background: var(--gray-100); padding: 12px 18px; font-weight: 700; font-size: 0.88rem; color: var(--gray-900); border-bottom: 1px solid var(--gray-200); }
+    .checklist-body { padding: 14px 18px; }
+    .check-item { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: 0.85rem; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box { width: 18px; height: 18px; border: 2px solid var(--gray-300, #d1d5db); border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Plan B table ── */
+    .planb-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid var(--gray-200); }
+    .planb-table th { background: var(--red); color: #fff; padding: 10px 14px; text-align: left; font-weight: 700; }
+    .planb-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); vertical-align: top; }
+    .planb-table tr:last-child td { border-bottom: none; }
+    .planb-table tr:nth-child(even) td { background: var(--gray-50); }
+
+    /* ── Print materials ── */
+    .print-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid var(--gray-200); }
+    .print-table th { background: var(--blue); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+    .print-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+    .print-table tr:last-child td { border-bottom: none; }
+    .print-table tr:nth-child(even) td { background: var(--gray-50); }
+    .resp-b { color: var(--green); font-weight: 700; }
+    .resp-c { color: var(--blue); font-weight: 700; }
+
+    footer { background: var(--blue-dark); color: #bfdbfe; text-align: center; padding: 24px 16px; font-size: 0.78rem; }
+    footer a { color: #93c5fd; text-decoration: none; }
+
+    /* ── Login overlay ── */
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #login-overlay.hidden { display: none; }
+    .login-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+    .login-logo {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .login-box h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+    .login-box p {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      margin-bottom: 28px;
+    }
+    .login-field { margin-bottom: 16px; }
+    .login-field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 5px;
+    }
+    .login-field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--gray-900);
+      outline: none;
+      transition: border-color .15s;
+    }
+    .login-field input:focus { border-color: var(--blue); }
+    .login-error {
+      display: none;
+      background: var(--red-light);
+      color: var(--red);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+    }
+    .login-error.visible { display: block; }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .15s;
+      margin-top: 4px;
+    }
+    .login-btn:hover { opacity: .88; }
+    /* ── Login logos ── */
+    .login-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .login-logo-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .login-logo-item img {
+      height: 32px;
+      width: auto;
+    }
+    .login-logo-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      line-height: 1.1;
+    }
+    .login-logo-sub {
+      font-size: 0.6rem;
+      color: var(--gray-500);
+      line-height: 1.3;
+    }
+    .login-logo-sep {
+      width: 1px;
+      height: 28px;
+      background: var(--gray-200);
+    }
+    .isbasce-badge-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--blue-dark);
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+    }
+    .login-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--gray-100);
+      font-size: 0.72rem;
+      color: var(--gray-500);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login overlay -->
+<div id="login-overlay">
+  <div class="login-box">
+    <!-- Logos -->
+    <div class="login-logos">
+      <div class="login-logo-item">
+        <img src="data:image/jpeg;base64,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"
+             alt="SBA"
+             onerror="this.style.display='none'">
+        <div>
+          <div class="login-logo-name">SBA</div>
+          <div class="login-logo-sub">Soc. Brasileira de<br>Anestesiologia</div>
+        </div>
+      </div>
+      <div class="login-logo-sep"></div>
+      <div class="login-logo-item">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAB4AHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDdJxRk+poPWkr2D4UXJ9TRk+ppKKBC5PqaMn1NJRQAuT6mjJ9TSUUALk+poyfU0lFAC5PqaMn1NJRQAuT6mjJ9TSUUALk+popKKBoU9aSlPWkoAKKKKBBRRRQAUUUUAFFFFABRRRQAUUUUAFFFFA0DsFBY8ADJqv8A2hbf89P/AB01Lcf6mT/dP8qs+ENB0vVrTU7vVJLmOKxRXJhIzghs8YOelfP5vmeIw1aFKgk+ZN636fM+v4dyPB47D1a+KclytL3bdfVPqUf7Qtv+en6Gj7fbf89f0NX9RtvBK2E7WF7qT3YQmJZEO0t2z8vSuWrwavFGMpu1oP0u/wBT6vD8DZdWTadRetl/7abX2+2/56/oaPt9t/z1/Q1NoMPhaSzY63dX0Vz5h2rApK7MDHY85zWjq/h7w8PDEus6NPey7J1hHnHAzkZ4wPWtYcRY2UOdKG17a3+65hPg7K4VFTk6qu7X0td+fKZ0cqTJvQ5XpmnVV0z/AI9B/vGrXSvr8DXlXw8Kst5JM/O81wsMLjKuHhtGTSvvowooorqPPCiig8daACijI6ZFFABRRRQNDLj/AFMn+6f5U/w7rdlpmia7aXLSCW9gEcIVCQThup7dRTbj/VSf7p/lXP18RxVVdKvSlHs/xP1DgOhGvha8J7c0X92pbhtlfTrm5IcvFJGgwRjDbs5H4D86t6TpcGoQs0jyIRKiE5AUKSAeSDk8njj8eRWT796MA9QK+OjOKabVz9FnTlJNKVjcvtDt7aG5kS4w6KrxxOw3MMAvkYB4yMcDoanj1uzTwPNoxaT7Y92Jguw7duR3/CucGB0x+FLWqxHK24K10195i8JzxSqyvZp/ca+mf8eg/wB41q6bMkM0rPIkYMEiguMjcVO3se+KytM/49R/vGtTToIbidlmPCoWVd4XecjjJ46ZP4V+oZZ/uNK/8q/I/C89v/ate387/MvA6OzkYRFCsoYl/RcNjuc7h1FK91p5SQKsHzxnau1tqt5SjP8AvbgRmotRtLKKMy2825mlICqw2gbm49RgAc+9WJ7OwZ2+aGFSARGjLuUZbvlgc4HI69xXV7u+pw+9e1kMzo6GRAUdHOdwD7lXzAcD/a25qOGazg1ENGYFQxYZvm2BieqEgkcY6g96cNOsJWAiuCp44eVf+mZJzx0DN/3z+FObT7KWNm+0RxhYl2sJBywzkkd84ovHuxWlpZLQla50uS1SBplMYYZJjwxxKSTgLxle+fbFZmqTQXNz9ot/lEqhnTaF2t0IwOO2ePWr/wDZtpGt0jskQAzGzyK7dyGGOxFRHT7P7ckPnlUZHbHmKSSCdo3Dj5gAfbNEHFO6CopSVmkZVFS3KRx3MiRMXjViFY4yR+FFdKdzkatoQXH+qk/3T/KpvC+k2V/oXiC4urdZZbW3DwsSco2G5GD7Cobj/VSf7p/lTvCniaz0GC/t72xkvIbxVRkVgowM5Bz65r43iRwWJpe02tI/SOC1VeBr+xvzc0dtPX8DLsr5Laxu7aRZD54428c4IBJznHPTkH261SBwQcA4OcHofauo1DX/AAtcWM8Np4Y+z3DoVjm8wHY3Y1y1fG14qNoqSl6X/VH6RhZOfNKUHFvvb9GzbuNchnt72IfaybggrvIwg+b5OCPlG4evToKuQ6TZN8P7nU2t1N4t4I1lychcrx6d6r6Dq+g6fZvFqmhf2hOZCwl34wuBx/P86vaz4u0q78Py6PpujvYJJKsvEgK5B5498V103Bwc6kk3Z2Wt7/dY8+rGqpxp0ackuZNu6tZb9b/gZWmf8eo/3jWpp9slzJIHR5PLiaQRocNIRjgcH1z07Vl6Z/x6j/eNWwSpBUkEdCDgiv0jKlfBUv8ACvyPxfP2lmldv+eX5msuhBwshlMHmMR5bpuZAN3BI6sNvTjrS2+k2jeVIzStE8ayE7dp5SRsDn/YFZG5gMbmxnOM96NzYxuOB712cku55iqQX2TVk0QGQCNpGV24CxZCqACSSTwec4/WlbQ/JlRWZ5QZCPkjOCoweWzwcHp+tZIdh0dhzngnr608XEoiMQdghYOR7joc/jRyz7j9pT/lNC/0doRNMZmby87cgkbQVAG71+YYHoKy8dsUpZiMFmIPPWkq4ppaszqSjJ3irBRRRVEIGAOQeQeKi+yW/wDzxT8qmPWkrKpQp1NZxT9Vc3pYqtRuqU3G/ZtfkRfZLf8A54p+VH2S3/54p+VS0Vn9Tw//AD7j9yNv7Sxf/P2X/gT/AMyL7Jb/APPFPyo+yW//ADxT8qloo+p4f/n3H7kH9pYz/n7L/wACf+Y1ESNdqKFHoKdRRXRGKirRVkcc5ynJyk7thRRRTJCiiigAooooAKKKKBoU9aSlPWkoAKKKKBBRRRQAUUUUAFFFFABRRRQAUUUUAFFFFA0KetJRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQIUCiiigZ//2Q==" alt="ISBASCE" style="height:32px;width:auto;border-radius:5px;">
+        <div>
+          <div class="login-logo-name">ISBASCE</div>
+          <div class="login-logo-sub">Instituto de Simulação<br>e Certificação</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-logo">SP-ANEST-001 · CuidarSeguro</div>
+    <h2>Área do Instrutor</h2>
+    <p>Acesso restrito à equipe docente. Informe o e-mail institucional e a senha do curso.</p>
+    <div class="login-field">
+      <label for="login-email">E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email">
+    </div>
+    <div class="login-field">
+      <label for="login-pass">Senha</label>
+      <input type="password" id="login-pass" placeholder="••••••••••" autocomplete="current-password">
+    </div>
+    <div id="login-error" class="login-error">E-mail ou senha incorretos. Verifique e tente novamente.</div>
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+    <div class="login-badge">🔒 Uso exclusivo dos instrutores · SP-ANEST-001</div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    if (sessionStorage.getItem('instrutor_auth') === '1') {
+      document.getElementById('login-overlay').classList.add('hidden');
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doLogin();
+    });
+  })();
+
+  function doLogin() {
+    var email = document.getElementById('login-email').value.trim();
+    var pass  = document.getElementById('login-pass').value;
+    var err   = document.getElementById('login-error');
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    var passOk  = pass === 'sba@imersão.sp';
+    if (emailOk && passOk) {
+      sessionStorage.setItem('instrutor_auth', '1');
+      document.getElementById('login-overlay').classList.add('hidden');
+      err.classList.remove('visible');
+    } else {
+      err.classList.add('visible');
+      document.getElementById('login-pass').value = '';
+      document.getElementById('login-pass').focus();
+    }
+  }
+</script>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="../../">Cursos</a>
+    <span class="sep">›</span>
+    <a href="../">SP-ANEST-001</a>
+    <span class="sep">›</span>
+    <span>Área do instrutor</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="course-id">SP-ANEST-001 · Área do Instrutor</div>
+    <h1>Segurança do Paciente em Anestesiologia</h1>
+    <p>Documentos operacionais, cenários e materiais de facilitação para uso exclusivo da equipe docente.</p>
+    <div class="restricted-badge">🔒 Uso exclusivo dos instrutores</div>
+  </div>
+</div>
+
+<main>
+
+  <div class="alert alert-amber">
+    <strong>⚠️ Atenção — Pré-leitura obrigatória</strong>
+    Cada instrutor deve ler integralmente o Guia do Facilitador na véspera do curso. O checklist de materiais deve ser conferido com pelo menos 24h de antecedência. Os cenários NÃO devem ser compartilhados com os participantes.
+  </div>
+
+  <!-- Papéis -->
+  <section>
+    <h2 class="section-title">Papéis dos 3 instrutores</h2>
+    <div class="role-grid">
+      <div class="role-card role-a">
+        <div class="role-card-header">Instrutor A · Confederado</div>
+        <div class="role-card-body">
+          <div class="role-location">Local: Sala de simulação (permanente)</div>
+          <div class="role-item">Controla manequim e parâmetros vitais em tempo real</div>
+          <div class="role-item">É o "paciente" confederado quando o cenário exige interação verbal</div>
+          <div class="role-item">Executa o freeze: "Pausa. Congelamos aqui."</div>
+          <div class="role-item">Aciona cronômetro no início de cada cenário</div>
+          <div class="role-item">Verifica reset completo da sala entre equipes</div>
+          <div class="role-item">NUNCA sai durante os Blocos 10–14</div>
+        </div>
+      </div>
+      <div class="role-card role-b">
+        <div class="role-card-header">Instrutor B · Observadores</div>
+        <div class="role-card-body">
+          <div class="role-location">Local: Auditório / sala de observação</div>
+          <div class="role-item">Distribui e recolhe checklists de observação</div>
+          <div class="role-item">Mantém silêncio e foco na sala de observação</div>
+          <div class="role-item">Anota perguntas dos observadores para o debriefing</div>
+          <div class="role-item">Gerencia sistema de transmissão ao vivo — avisa C se cair</div>
+          <div class="role-item">Manhã: apoia atividades em grupo (materiais, cronometragem)</div>
+        </div>
+      </div>
+      <div class="role-card role-c">
+        <div class="role-card-header">Instrutor C · Coordenador</div>
+        <div class="role-card-body">
+          <div class="role-location">Local: Auditório (manhã) → Sala de debriefing (tarde)</div>
+          <div class="role-item">Lidera todos os blocos da manhã</div>
+          <div class="role-item">Conduz todos os debriefings (método GAS)</div>
+          <div class="role-item">Controla o tempo geral do curso</div>
+          <div class="role-item">Único que comunica com participantes durante simulação (via freeze)</div>
+          <div class="role-item">Avisa A via rádio/WhatsApp 5 min antes do fim do debriefing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documentos do pacote -->
+  <section>
+    <h2 class="section-title">Documentos do pacote SP-ANEST-001</h2>
+    <div class="docs-grid">
+      <div class="doc-row">
+        <div class="doc-icon">📋</div>
+        <div class="doc-info">
+          <div class="doc-title">Guia do Facilitador — Dia do Curso</div>
+          <div class="doc-desc">Linha do tempo consolidada, papéis A/B/C, protocolo de transição, Plano B, frases-chave. Imprimir 1 via por instrutor (3 cópias).</div>
+          <div class="doc-path">SP-ANEST-001-Guia-do-Facilitador.md</div>
+        </div>
+        <div class="doc-badge blue">Principal</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon">📚</div>
+        <div class="doc-info">
+          <div class="doc-title">Ementa e Conteúdo Programático</div>
+          <div class="doc-desc">7 objetivos (Bloom), grade horária 15 blocos, bibliografia. Documento de referência institucional.</div>
+          <div class="doc-path">SP-ANEST-001-Ementa-Conteudo-Programatico.md</div>
+        </div>
+        <div class="doc-badge blue">Referência</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon">🌅</div>
+        <div class="doc-info">
+          <div class="doc-title">Planos de Aula — Manhã (Blocos 1–7)</div>
+          <div class="doc-desc">Scripts de facilitação detalhados, referências de slides, perguntas âncora para cada bloco.</div>
+          <div class="doc-path">SP-ANEST-001-Planos-de-Aula-Manha.md</div>
+        </div>
+        <div class="doc-badge blue">Facilitação</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon">🏥</div>
+        <div class="doc-info">
+          <div class="doc-title">Plano de Simulação — Tarde (Blocos 8–15)</div>
+          <div class="doc-desc">Plano operacional completo: briefings, execução dos cenários, debriefings GAS.</div>
+          <div class="doc-path">SP-ANEST-001-Plano-Simulacao-Tarde.md</div>
+        </div>
+        <div class="doc-badge green">Simulação</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon">🎭</div>
+        <div class="doc-info">
+          <div class="doc-title">CEN-01 · Cirurgia em local errado</div>
+          <div class="doc-desc">Script min. a min., diagrama Swiss Cheese, roteiro GAS, checklist de observação. NÃO compartilhar com participantes.</div>
+          <div class="doc-path">009_Wiki/Cenarios/CEN-01-Cirurgia-Local-Errado.md</div>
+        </div>
+        <div class="doc-badge green">Cenário</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon">💉</div>
+        <div class="doc-info">
+          <div class="doc-title">CEN-02 · Erro de medicação LASA</div>
+          <div class="doc-desc">Script LASA adrenalina × atropina, crise hemodinâmica, GAS, checklist de observação. NÃO compartilhar.</div>
+          <div class="doc-path">009_Wiki/Cenarios/CEN-02-Erro-Medicacao-Adrenalina-Atropina.md</div>
+        </div>
+        <div class="doc-badge green">Cenário</div>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon">❓</div>
+        <div class="doc-info">
+          <div class="doc-title">Banco de Questões (Formas A e B)</div>
+          <div class="doc-desc">20 questões (10 por forma), gabaritos, planilha de análise por equipe. USO EXCLUSIVO DO INSTRUTOR C.</div>
+          <div class="doc-path">SP-ANEST-001-Banco-de-Questoes.md</div>
+        </div>
+        <div class="doc-badge amber">Restrito</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checklist de materiais impressos -->
+  <section>
+    <h2 class="section-title">Materiais impressos — Checklist de véspera</h2>
+    <p style="font-size:0.85rem;color:var(--gray-500);margin-bottom:14px;">Responsável pela conferência: <span class="resp-b">Instrutor B</span> (materiais das atividades) e <span class="resp-c">Instrutor C</span> (testes e gabaritos).</p>
+
+    <div style="overflow-x:auto;">
+      <table class="print-table">
+        <thead>
+          <tr><th>Material</th><th>Bloco</th><th>Qtd</th><th>Resp.</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MATERIAL-01 · Cards Swiss Cheese (5 cards/conjunto)</td><td>BL-04</td><td>5 conjuntos</td><td class="resp-b">B</td></tr>
+          <tr><td>MATERIAL-02 · Folha A3 Mapeamento de Barreiras</td><td>BL-05</td><td>6 folhas (+1 reserva)</td><td class="resp-b">B</td></tr>
+          <tr><td>MATERIAL-03 · Folhetos Roleplay CRM (3 papéis/tríade)</td><td>BL-06</td><td>8 conjuntos</td><td class="resp-b">B</td></tr>
+          <tr><td>MATERIAL-04 · Cards Lacunas Locais (10 cards/conjunto)</td><td>BL-07</td><td>6 conjuntos (+1 reserva)</td><td class="resp-b">B</td></tr>
+          <tr><td>MATERIAL-05 · Checklist Observação CEN-01</td><td>BL-10</td><td>25 cópias</td><td class="resp-b">B</td></tr>
+          <tr><td>MATERIAL-06 · Checklist Observação CEN-02</td><td>BL-13</td><td>25 cópias</td><td class="resp-b">B</td></tr>
+          <tr><td>MATERIAL-07 · Formulário Pré/Pós-Teste (A e B, frente-verso)</td><td>BL-01 + BL-15</td><td>30 cópias</td><td class="resp-c">C</td></tr>
+          <tr><td>MATERIAL-08 · Formulário de Satisfação (+ envelope)</td><td>BL-15</td><td>25 cópias + 5 envelopes</td><td class="resp-b">B</td></tr>
+          <tr><td>Gabarito dos testes (uso exclusivo instrutor)</td><td>Almoço</td><td>1 via impressa</td><td class="resp-c">C</td></tr>
+          <tr><td>Canetas coloridas (verde/amarelo/vermelho)</td><td>Manhã</td><td>5 jogos</td><td class="resp-b">B</td></tr>
+          <tr><td>Canetas esferográficas</td><td>Dia todo</td><td>30 unidades</td><td class="resp-b">B</td></tr>
+          <tr><td>Marcador de quadro branco (4 cores)</td><td>Manhã</td><td>1 jogo</td><td class="resp-c">C</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Setup de simulação -->
+  <section>
+    <h2 class="section-title">Setup da sala de simulação</h2>
+    <div class="checklist-section">
+      <div class="checklist-header">CEN-01 · Cirurgia em local errado — Setup (Instrutor A)</div>
+      <div class="checklist-body">
+        <div class="check-item"><div class="check-box"></div><div>Manequim posicionado em maca cirúrgica, MMSS expostos</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Prontuário no cabeceiro com lado <strong>DIREITO</strong> escrito (o errado para o cenário — cirurgia é no D, mas marcação fica no E)</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Marcação no <strong>LADO ESQUERDO</strong> (lado correto que o participante não verá de imediato)</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Monitor ligado — parâmetros basais: PA 120/80, FC 72, SpO₂ 98%</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Aparelho de US posicionado (se disponível)</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Circulante confederada briefada (papel B)</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Cronômetro zerado</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Sistema de transmissão ao vivo testado e funcionando</div></div>
+      </div>
+    </div>
+    <div class="checklist-section">
+      <div class="checklist-header">CEN-02 · Erro de medicação LASA — Setup (Instrutor A)</div>
+      <div class="checklist-body">
+        <div class="check-item"><div class="check-box"></div><div>Manequim em posição cirúrgica supina, monitor ligado</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Bandeja de medicamentos: <strong>adrenalina 1mg/mL na posição "atropina", SEM rótulo</strong>, ao lado de seringa de atropina rotulada</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Monitor com parâmetros basais: PA 110/70, <strong>FC 48 bpm (bradicardia leve)</strong></div></div>
+        <div class="check-item"><div class="check-box"></div><div>ECG com traçado de bradicardia sinusal visível</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Sequência hemodinâmica programada no simulador (ou confederado pronto para anunciar verbalmente)</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Circulante confederada briefada</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Cronômetro zerado</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Reset confirmar após cada equipe (bandeja + monitor + posição do manequim)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plano B -->
+  <section>
+    <h2 class="section-title">Plano B — Se algo der errado</h2>
+    <div style="overflow-x:auto;">
+      <table class="planb-table">
+        <thead>
+          <tr><th>Problema</th><th>Ação imediata</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Transmissão ao vivo cai</td><td>B avisa C. Continuar sem transmissão. Observadores recebem relato verbal depois.</td></tr>
+          <tr><td>Equipe "trava" no cenário (silêncio &gt;2 min)</td><td>A injeta dica via confederado: "Doutor, o senhor precisa de ajuda?" ou piora parâmetro do monitor.</td></tr>
+          <tr><td>Equipe resolve o cenário muito rápido (&lt;8 min)</td><td>A acrescenta complicação: nova alteração hemodinâmica, familiar entra, alarme adicional.</td></tr>
+          <tr><td>Participante em sofrimento visível no debriefing</td><td>C pausa: "Vamos dar um momento." B acompanha o participante. C retoma em 5 min.</td></tr>
+          <tr><td>Atraso acumulado &gt;20 min</td><td>Cortar 5 min de cada debriefing restante. Manter pós-teste e satisfação.</td></tr>
+          <tr><td>Queda de energia / equipamento</td><td>Usar cenário verbal (role-play sem manequim). C conduz como discussão de caso.</td></tr>
+          <tr><td>Participante questiona veementemente o realismo</td><td>"Você tem razão — é uma representação. O que importa é o princípio. Conte um caso real seu que se assemelhe."</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Debriefing GAS -->
+  <section>
+    <h2 class="section-title">Roteiro GAS — Perguntas-âncora (Instrutor C)</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;">
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:10px;overflow:hidden;">
+        <div style="background:var(--blue);color:#fff;padding:10px 16px;font-weight:700;font-size:0.85rem;">G — Gather · Coleta (5 min)</div>
+        <div style="padding:14px 16px;font-size:0.83rem;color:var(--gray-700);">
+          <p style="margin-bottom:8px;">"Antes de analisar, me conta: o que aconteceu na sala do ponto de vista de quem estava lá?"</p>
+          <p style="margin-bottom:8px;">"Alguém que estava observando quer acrescentar algo ao relato?"</p>
+          <p style="font-style:italic;color:var(--gray-500);">Não corrija ainda — apenas colete a narrativa.</p>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:10px;overflow:hidden;">
+        <div style="background:var(--amber);color:#fff;padding:10px 16px;font-weight:700;font-size:0.85rem;">A — Analyze · Análise (12–15 min)</div>
+        <div style="padding:14px 16px;font-size:0.83rem;color:var(--gray-700);">
+          <p style="margin-bottom:8px;">"O que estava passando pela sua cabeça quando [momento crítico]?"</p>
+          <p style="margin-bottom:8px;">"Havia algo no ambiente que dificultava [ação correta]?"</p>
+          <p style="margin-bottom:8px;">"Qual barreira do Queijo Suíço esteve mais frágil aqui?"</p>
+          <p style="color:var(--green);font-size:0.78rem;"><em>CEN-02:</em> "A bandeja estava configurada para facilitar ou dificultar a identificação correta?"</p>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:10px;overflow:hidden;">
+        <div style="background:var(--green);color:#fff;padding:10px 16px;font-weight:700;font-size:0.85rem;">S — Summarize · Síntese (3–5 min)</div>
+        <div style="padding:14px 16px;font-size:0.83rem;color:var(--gray-700);">
+          <p style="margin-bottom:8px;">"O que ficou de mais importante para levar para a prática de vocês?"</p>
+          <p style="margin-bottom:8px;">"Que mudança concreta e viável vocês poderiam implementar no serviço nos próximos 30 dias?"</p>
+          <p style="font-style:italic;color:var(--gray-500);">Anotar as respostas no quadro para o Bloco 15A.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registro pós-curso -->
+  <section>
+    <h2 class="section-title">Registro pós-curso (em até 48h)</h2>
+    <div class="checklist-section">
+      <div class="checklist-header">Checklist — Todos os instrutores</div>
+      <div class="checklist-body">
+        <div class="check-item"><div class="check-box"></div><div>Consolidar planilha pré/pós-teste com ganho Δ por equipe</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Resumir respostas abertas do Formulário de Satisfação (MATERIAL-08)</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Registrar incidentes e imprevistos no log do vault Obsidian</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Atualizar status da turma na entidade <code>Curso-Piloto-SP-Anestesiologia-2026.md</code></div></div>
+        <div class="check-item"><div class="check-box"></div><div>Redigir parágrafo de lições aprendidas para a próxima edição</div></div>
+        <div class="check-item"><div class="check-box"></div><div>Enviar certificados (se aplicável)</div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 <a href="https://www.cuidarseguro.com.br">CuidarSeguro</a> · SP-ANEST-001 · Área do Instrutor · Uso restrito</p>
+</footer>
+
+</body>
+</html>
 
