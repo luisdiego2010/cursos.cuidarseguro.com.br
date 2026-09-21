@@ -49,6 +49,13 @@ function canonicalRedirectUrl() {
   return `${window.location.origin}/sp-anest-001/instrutores/`
 }
 
+function isEmailRateLimitError(error) {
+  const message = String(error?.message || '')
+  return error?.status === 429
+    || error?.code === 'over_email_send_rate_limit'
+    || /rate limit|too many requests/i.test(message)
+}
+
 async function sendMagicLink(event) {
   event.preventDefault()
   const form = event.currentTarget
@@ -73,6 +80,10 @@ async function sendMagicLink(event) {
 
   setBusy(button, false)
   if (error) {
+    if (isEmailRateLimitError(error)) {
+      setStatus('O limite temporário de dois e-mails por hora do Supabase foi atingido. Não solicite novamente agora; aguarde cerca de uma hora e tente uma única vez.', 'error')
+      return
+    }
     setStatus('Não foi possível enviar o link. Confirme que o e-mail foi previamente autorizado.', 'error')
     return
   }

@@ -37,7 +37,8 @@ const requiredClient = [
   ['publishable key', /sb_publishable_/],
   ['prevent auto signup', /shouldCreateUser\s*:\s*false/],
   ['magic-link sign-in', /signInWithOtp/],
-  ['short-lived signed URL', /createSignedUrl/]
+  ['short-lived signed URL', /createSignedUrl/],
+  ['email rate-limit handling', /error\?\.status\s*===\s*429/]
 ]
 for (const [label, pattern] of requiredClient) {
   if (!pattern.test(client)) errors.push(`cliente: requisito ausente (${label})`)
