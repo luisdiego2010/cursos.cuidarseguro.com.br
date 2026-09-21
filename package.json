@@ -5,7 +5,7 @@
   "description": "Portal estático de cursos CuidarSeguro com autenticação Supabase.",
   "scripts": {
     "build": "esbuild src/instructor-portal.js --bundle --minify --format=iife --target=es2020 --outfile=assets/js/instructor-portal.js && node scripts/strip_trailing_whitespace.mjs assets/js/instructor-portal.js",
-    "check": "python scripts/validate_site.py && node scripts/validate_auth_source.mjs"
+    "check": "python scripts/validate_site.py && node scripts/validate_auth_source.mjs && node scripts/test_auth_return_guard.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.58.0"
