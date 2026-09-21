@@ -4,6 +4,7 @@ import path from 'node:path'
 const root = path.resolve(import.meta.dirname, '..')
 const files = [
   'src/instructor-portal.js',
+  'assets/js/auth-return-guard.js',
   'sp-anest-001/instrutores/index.html',
   'supabase/functions/admin-course-access/index.ts',
   'supabase/migrations/20260921132000_create_course_access_control.sql'
@@ -37,6 +38,8 @@ const requiredClient = [
   ['publishable key', /sb_publishable_/],
   ['prevent auto signup', /shouldCreateUser\s*:\s*false/],
   ['magic-link sign-in', /signInWithOtp/],
+  ['canonical instructor redirect', /sp-anest-001\/instrutores\//],
+  ['pending-login marker', /cuidarseguro:instructor-login-pending/],
   ['short-lived signed URL', /createSignedUrl/],
   ['email rate-limit handling', /error\?\.status\s*===\s*429/]
 ]

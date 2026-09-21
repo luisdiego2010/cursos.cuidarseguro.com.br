@@ -5,6 +5,7 @@ const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Avp5BALuwurhGA66Tnp48w_6vcdwVs6
 const COURSE_CODE = 'SP-ANEST-001'
 const BUCKET = 'course-materials'
 const SIGNED_URL_TTL_SECONDS = 60
+const LOGIN_MARKER = 'cuidarseguro:instructor-login-pending'
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
@@ -88,6 +89,7 @@ async function sendMagicLink(event) {
     return
   }
 
+  localStorage.setItem(LOGIN_MARKER, String(Date.now()))
   form.reset()
   setStatus('Se o e-mail estiver autorizado, um link de acesso será enviado. Verifique também a pasta de spam.', 'success')
 }
@@ -96,6 +98,7 @@ async function signOut() {
   const button = byId('sign-out')
   setBusy(button, true, 'Saindo…')
   await supabase.auth.signOut()
+  localStorage.removeItem(LOGIN_MARKER)
   state.session = null
   state.role = null
   state.course = null
@@ -385,6 +388,7 @@ async function loadDocuments() {
 }
 
 async function loadAuthorizedPortal(session) {
+  localStorage.removeItem(LOGIN_MARKER)
   state.session = session
 
   const { data: roleRow, error: roleError } = await supabase
@@ -436,7 +440,10 @@ async function initialize() {
   byId('invite-form').addEventListener('submit', inviteUser)
 
   const urlError = new URLSearchParams(window.location.search).get('error_description')
-  if (urlError) setStatus('O link expirou ou não pôde ser validado. Solicite um novo acesso.', 'error')
+  if (urlError) {
+    localStorage.removeItem(LOGIN_MARKER)
+    setStatus('O link expirou ou não pôde ser validado. Solicite um novo acesso.', 'error')
+  }
 
   const { data: { session } } = await supabase.auth.getSession()
   if (session) await loadAuthorizedPortal(session)
