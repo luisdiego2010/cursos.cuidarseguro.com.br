@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cursos.cuidarseguro.com.br/sitemap.xml
