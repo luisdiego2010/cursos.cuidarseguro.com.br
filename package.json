@@ -1,0 +1,17 @@
+{
+  "name": "cursos-cuidarseguro",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Portal estático de cursos CuidarSeguro com autenticação Supabase.",
+  "scripts": {
+    "build": "esbuild src/instructor-portal.js --bundle --minify --format=iife --target=es2020 --outfile=assets/js/instructor-portal.js",
+    "check": "python scripts/validate_site.py && node scripts/validate_auth_source.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.58.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10"
+  },
+  "packageManager": "pnpm@10.17.1"
+}
