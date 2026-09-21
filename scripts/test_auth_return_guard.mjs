@@ -4,7 +4,7 @@ import vm from 'node:vm'
 const source = fs.readFileSync(new URL('../assets/js/auth-return-guard.js', import.meta.url), 'utf8')
 const MARKER = 'cuidarseguro:instructor-login-pending'
 
-function run({ pathname, search = '', hash = '', marker }) {
+function run({ pathname, search = '', hash = '', marker, referrer = '' }) {
   const values = new Map()
   if (marker !== undefined) values.set(MARKER, String(marker))
   let replacedWith = null
@@ -17,6 +17,7 @@ function run({ pathname, search = '', hash = '', marker }) {
   const href = `https://cursos.cuidarseguro.com.br${pathname}${search}${hash}`
   const context = {
     Date,
+    document: { referrer },
     localStorage: storage,
     window: {
       location: {
@@ -43,6 +44,14 @@ const cases = [
   {
     name: 'login recente que caiu em participantes volta para docentes',
     actual: run({ pathname: '/sp-anest-001/participantes/', marker: now }).replacedWith,
+    expected: '/sp-anest-001/instrutores/'
+  },
+  {
+    name: 'retorno direto do Supabase sem parâmetros volta para docentes',
+    actual: run({
+      pathname: '/sp-anest-001/participantes/',
+      referrer: 'https://qouylryampbwdqubfcbx.supabase.co/'
+    }).replacedWith,
     expected: '/sp-anest-001/instrutores/'
   },
   {
